@@ -32,7 +32,24 @@ CREATE TABLE `auth_rule` (
   `sort` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `create_time` int(11) unsigned zerofill DEFAULT '00000000000',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+
+INSERT INTO `auth_rule` (`id`, `name`, `title`, `type`, `status`, `condition`, `icon`, `pid`, `sort`, `create_time`) VALUES
+  (1, 'Index/index', '控制台首页', 1, 1, '', 'fa fa-dashboard', 0, 0, 01597385492),
+  (28, '', '账号管理', 1, 1, '', 'fa fa-calendar-o', 0, 0, 01597387651),
+  (29, 'User/index', '账号列表', 1, 1, '', '', 28, 0, 01597387667),
+  (30, 'Auth/index', '角色管理', 1, 1, '', '', 28, 0, 01597387684),
+  (31, '', '系统管理', 1, 1, '', 'fa fa-cog', 0, 0, 01597387699),
+  (32, 'Sysconf/setconf', '基础参数', 1, 1, '', '', 31, 0, 01597387737),
+  (35, 'Sysconf/time', '系统时间', 1, 1, '', '', 31, 0, 01597387784),
+  (38, '', '系统日志', 1, 1, '', 'fa fa-file-text-o', 0, 0, 01597387836),
+  (39, 'Sysconf/log', '用户操作日志', 1, 1, '', '', 38, 0, 01597387855),
+  (50, 'Auth/delete', '删除角色', 1, 0, '', '', 30, 0, 01602727377),
+  (49, 'Auth/add', '编辑角色', 1, 0, '', '', 30, 0, 01602725674),
+  (48, 'User/delete', '删除用户', 1, 0, '', '', 29, 0, 01602725589),
+  (47, 'User/update', '编辑用户', 1, 0, '', '', 29, 0, 01602725357),
+  (46, 'User/add', '新增用户', 1, 0, '', '', 29, 0, 01602669767),
+  (45, 'Sysconf/backup', '备份还原', 1, 1, '', '', 31, 0, 01598411425);
 
 -- ----------------------------
 -- Table structure for auth_group_access
