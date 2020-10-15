@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 被2012 () 使用XMLSpy v编辑的 (http://www.altova.com) by -->
+<!--编辑使用   XMLSpy v2006 U (http://www.altova.com)由   any (any) -->
+<!--编辑使用   XMLSpy v2006 U (http://www.altova.com)由   any (any) -->
+<!--编辑使用   XMLSpy v2006 U (http://www.altova.com)由   any (any) -->
+<!--编辑使用   XMLSpy v2006 U (http://www.altova.com)由   any (any) -->
+<!--编辑使用   XMLSpy v2006 U (http://www.altova.com)由   any (any) -->
+<!--编辑使用   XMLSpy v2006 U (http://www.altova.com)由   any (any) -->
+<!-- edited with XML Spy v4.2 U (http://www.xmlspy.com) by munn (munn) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="illegalWeb">
+		<xs:annotation>
+			<xs:documentation>违法违规网站监测数据</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="web">
+					<xs:annotation>
+						<xs:documentation>单挑监测数据</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="idcId" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>IDC/ISP经营者ID</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="houseId" type="xs:long">
+								<xs:annotation>
+									<xs:documentation>机房ID</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="domain" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>监测到的实际域名</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ip" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>监测到的域名对应的IP地址</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="port" type="xs:long">
+								<xs:annotation>
+									<xs:documentation>监测到的目的端口</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="illegalType" type="xs:integer">
+								<xs:annotation>
+									<xs:documentation>违法违规的情况,见10.8节</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="firstFound" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>首次监测到该异常的时间,采用yyyy-MM-dd HH:mm:ss格式</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="lastFound" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>当天最后一次发现该异常的时间,采用yyyy-MM-dd HH:mm:ss格式</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="visitCount" type="xs:long">
+								<xs:annotation>
+									<xs:documentation>该域名的访问次数统计</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="protocol" type="xs:integer">
+								<xs:annotation>
+									<xs:documentation>1--TCP
+2--UDP</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="block" type="xs:integer">
+								<xs:annotation>
+									<xs:documentation>0--未阻断
+1--阻断</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

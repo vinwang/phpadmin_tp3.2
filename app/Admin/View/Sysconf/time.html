@@ -1,0 +1,148 @@
+<style>
+    th{width: 200px;text-align: right;}
+</style>
+<section class="content-header">
+  <h1>
+    系统时间 
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> 控制台</a></li>
+    <li><a href="#">系统管理</a></li>
+    <li class="active">系统时间</li>
+  </ol>
+</section>
+<section class="content">
+  <div class="nav-tabs-custom">
+    <div class="tab-content">
+      <div class="active tab-pane">
+        <div class="box">
+          <form id="form_op" name='form_op' action="" method="post" enctype="multipart/form-data">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-striped">
+              <if condition="$time_edit_hand">
+              <tr>
+                <th height="50">系统当前时间：</th>
+                <td>
+                  <span id="systime_span" >{$now_time}</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <span id="onSuccess" style="display:none;">
+                    <img src="__PUBLIC__/Images/onSuccess.gif" alt="成功" align="absmiddle" />
+                    &nbsp;&nbsp;
+                  </span>
+                  <span>
+                    <input type="text" id="systime" name="systime" value="" style="display:none; padding:3px 2px 2px 1px;" />
+                    <input type="button" id="show_c" class="btn btn-primary" value="修改" onclick="showc();"  />
+                    <input type="button" id="start_c" class="btn btn-primary" value="确定" onclick="startc();" style="display:none;" />
+                  </span>
+                </td>
+              </tr>
+              </if>
+              <tr>
+                <th height="50">与Internet时间同步：</th>
+                <td>
+                  <select name="time_server" id="time_server" style="padding:5px;">
+                    <option value="asia.pool.ntp.org">asia.pool.ntp.org</option>
+                    <option value="time.windows.com">time.windows.com</option>
+                    <option value="us.pool.ntp.org">us.pool.ntp.org</option>
+                    <option value="time-a.nist.gov">time-a.nist.gov</option>
+                    <option value="time-b.nist.gov">time-b.nist.gov</option>
+                    <option value="time-nw.nist.gov">time-nw.nist.gov</option>
+                  </select>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="button" id="update_time_from_server_btn" class="btn btn-primary" value="立即更新" onClick="javascript:setNewTimeFromInternet($('#time_server').val());"  />
+                  &nbsp;&nbsp;
+                  <span id="internet_time_update"></span>
+                </td>
+              </tr>  
+            </table> 
+          </form>
+        </div>
+      </div> 
+    </div>
+  </div>
+</section>
+
+<script type="text/javascript" language="javascript">
+<?php if ($time_edit_hand) {?>
+function getnowtime(){
+    var input_time = document.getElementById('systime_span').innerHTML.split(' ');
+    input_time[0] = input_time[0].split('-');
+    input_time[1] = input_time[1].split(':');
+
+    var nowtime_seconds = new Date(input_time[0][0]*1,input_time[0][1]*1-1,input_time[0][2]*1,input_time[1][0]*1,input_time[1][1]*1,input_time[1][2]*1).getTime();
+    nowtime_seconds = nowtime_seconds*1;
+    var nowtime = new Date(nowtime_seconds+1000);
+    var month = nowtime.getMonth();
+        month = month + 1;
+        month = month < 10 ? '0'+month : month;
+    var dday = nowtime.getDate();
+        dday = dday < 10 ? '0'+dday : dday;
+    var hours = nowtime.getHours();
+        hours = hours < 10 ? '0'+hours : hours;
+    var minutes = nowtime.getMinutes();
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+    var seconds = nowtime.getSeconds();
+        seconds = seconds < 10 ? '0'+seconds : seconds;
+    document.getElementById('systime_span').innerHTML = nowtime.getFullYear()+'-'+month+'-'+dday+' '+hours+':'+minutes+':'+seconds;
+    setTimeout("getnowtime()",1000);
+
+}
+setTimeout("getnowtime()",2000);
+function showc(){
+    document.getElementById('systime').value = document.getElementById('systime_span').innerHTML;
+    $('#systime').show();
+    $('#show_c').hide();
+    $('#start_c').show();
+    $('#onSuccess').hide();
+}
+function startc(){
+$.post('{:U("Sysconf/setNewDate")}',{new_date:$('#systime').val()}, function(data){
+        if (data == '对不起，您没有权限进行此操作！')
+      {
+          layermsg(data);
+      }
+      else if(data != 'frm_er'){
+            $('#systime_span').html(data);
+            $('#systime').hide();
+            $('#show_c').show();
+            $('#start_c').hide();
+            $('#onSuccess').show();
+            window.parent.document.getElementById("timetable").innerHTML = data;
+        }else{
+            layermsg('修改失败，时间格式为:yyyy-mm-dd hh:mm:ss');
+        }
+    });
+}
+<?php }?>
+function setNewTimeFromInternet(server){
+    $('#update_time_from_server_btn').hide();
+    $('#internet_time_update').html(' 正在与Internet时间同步');
+    var interval = window.setInterval(function(){
+        var text = document.getElementById('internet_time_update').innerHTML;
+        if (text.length < 26){
+            document.getElementById('internet_time_update').innerHTML=text + '.';
+        }else{
+            $('#internet_time_update').html(' 正在与Internet时间同步');
+        }
+    }, 200);
+    $.post("{:U('Sysconf/setNewTimeFromInternet')}",{server:server}, function(json){
+        if (json == '对不起，您没有权限进行此操作！')
+      {
+          $('#internet_time_update').html(json);
+          window.clearInterval(interval);
+          return false;
+      }
+    
+        var data = eval(json);
+        if(data[0] == 'fail'){
+            $('#internet_time_update').html('<img src="__PUBLIC__/Images/onFail.png" alt="失败" align="absmiddle" /> <font color="#FF0000">时间同步失败！</font>');
+            $('#update_time_from_server_btn').show();
+        }else{
+            <?php if ($time_edit_hand) {?>document.getElementById('systime_span').innerHTML = data[1];<?php }?>
+            window.parent.document.getElementById("timetable").innerHTML = data[1];
+            $('#internet_time_update').html('<img src="__PUBLIC__/Images/onSuccess.gif" alt="成功" align="absmiddle" /> 时间同步完成!');
+        }
+        window.clearInterval(interval);
+    });
+}
+</script>
+

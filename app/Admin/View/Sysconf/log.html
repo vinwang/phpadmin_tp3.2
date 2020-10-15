@@ -1,0 +1,126 @@
+<link rel="stylesheet" href="__PUBLIC__/css/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="__PUBLIC__/css/dist/css/AdminLTE.min.css">
+<section class="content-header">
+  <h1>
+    操作日志 
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> 控制台</a></li>
+    <li><a href="#">系统日志</a></li>
+    <li class="active">操作日志</li>
+  </ol>
+</section>
+<section class="content">
+  <div class="nav-tabs-custom">
+    <section class="content-header clearfix">
+      <div class="row">
+        <div class="col-sm-12">
+          <form class="form-inline export" method="get" name="search">
+            <input type="hidden" name="m" value="Admin">
+            <input type="hidden" name="c" value="Sysconf">
+            <input type="hidden" name="a" value="log">
+            <div class="form-group">
+              <label>用户：</label>
+              <input type="search" name="uname" id="uname" class="form-control input-sm" placeholder="用户" value="{$_GET['uname']}"/>
+            </div>
+
+            <div class="form-group">
+              <label>操作：</label>
+              <input type="search" name="model_txt" id="model_txt" class="form-control input-sm" placeholder="操作" value="{$_GET['model_txt']}" readonly="true" onclick="javascript:showLogmodel();"/>
+              <input type="hidden" name="model" id="model" value="{$_GET['model']}" />
+            </div>
+
+            <div class="form-group">
+              <label>备注：</label>
+              <input type="search" name="logdes" id="logdes" class="form-control input-sm" placeholder="备注" value="{$_GET['logdes']}"/>
+            </div>
+
+            <div class="form-group">
+              <label>操作IP：</label>
+              <input type="search" name="ulogipv4" id="ulogipv4" class="form-control input-sm" placeholder="操作IP" value="{$_GET['ulogipv4']}"/>
+            </div>
+
+            <div class="form-group">
+              <label>时间：</label>
+              <input type="search" class="form-control input-sm" name="add_time_start" id="add_time_start" value="{$_GET['add_time_start']}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"> -
+              <input type="search" class="form-control input-sm" name="add_time_end" id="add_time_end" value="{$_GET['add_time_end']}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+            </div>
+            
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary" value="搜索">
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-12">
+                <h5>
+                  格式: <select name="exporttype" id="exporttype"><option value="1" >txt格式</option><option value="2">csv格式</option></select>
+                  &nbsp;&nbsp;
+                  <a class="btn btn-primary btn-xs export" href="javascript:void(0);"/>导出</a>
+                  &nbsp;&nbsp;
+                  <a class="btn btn-primary pull-right" onclick="location.href='{:U('Sysconf/log')}';"><i class="glyphicon glyphicon-repeat">&thinsp;</i>刷新</a>
+                </h5>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <div class="box-body table-responsive">
+      <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+        <div class="row"><div class="col-sm-12">
+          <table id="example-ajax" class="table table-bordered table-striped">
+          <thead>
+          <tr> 
+            <th>编号</th>
+            <th>操作</th>
+            <th>备注</th>
+            <th>操作者</th>
+            <th>角色</th>
+            <th>操作IP</th>
+            <th>时间</th>  
+          </tr>
+          </thead>
+          <tbody> 
+            <volist name="log_list" id="val" key="k">
+              <tr> 
+                <td>{$k}</td>  
+                <td>{$log_model[$val['model']]}</td>  
+                <td>{$val.logdes}</td> 
+                <td>{$val.uname}</td> 
+                <td>{$auth_arr[$val['urid']]}</td> 
+                <td><?php echo long2ip($val['ulogipv4']);?></td> 
+                <td>{$val['add_time'] ? $val['add_time']|date='Y-m-d H:i:s',### : ''}</td>   
+              </tr> 
+            </volist>
+          </tfoot>
+        </table>
+        </div>
+      </div>
+      <div class="row">{$pageshow.total}{$pageshow.show}</div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="DOMContentWrap" class="form-group" style="display: none;">
+  <volist name="log_model" id="v">
+    <php>if(!$key) continue; </php>
+    <label style="width: 155px;float: left;font-weight: 400;font-size: 12px;margin-left: 20px;"><input type="radio" value="{$key}" id="m_{$key}" name="m_{$key}" onclick="javascript:$('#model').val('{$key}');$('#model_txt').val('{$v}');layer.close(layer.index);" <if condition="$key eq $model">checked</if> />{$v}</label>
+  </volist>
+</div>
+<script>
+function showLogmodel(){
+  layer.open({
+    type: 1,
+    title:'选择操作行为',
+    content: $('#DOMContentWrap').html(),
+    area: ['900px', '540px'], //宽高
+    shadeClose: true, //开启遮罩关闭
+    id: 'D345'
+  });
+}
+//导出
+$("a.export").click(function(){
+  $("input[name=a]").val('logexport');
+  $("form.export").submit();
+})
+</script>

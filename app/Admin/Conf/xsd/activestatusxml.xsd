@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="activeState">
+		<xs:annotation>
+			<xs:documentation>ISMS活动状态</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="idcId" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>IDC/ISP经营者ID</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="houseAmount" type="xs:integer">
+					<xs:annotation>
+						<xs:documentation>机房总数</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="errHouseAmount" type="xs:integer">
+					<xs:annotation>
+						<xs:documentation>异常机房总数</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="errHouseID" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>异常机房ID</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="timeStamp" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>
+上报活动状态的时间
+
+</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

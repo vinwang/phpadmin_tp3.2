@@ -1,0 +1,79 @@
+<aside class="main-sidebar">
+  <section class="sidebar">
+    <div class="user-panel">
+      <div class="pull-left image">
+        <img src="__PUBLIC__/images/user2-160x160.jpg" class="img-circle" alt="User Image">
+      </div>
+      <div class="pull-left info">
+        <p>{$admin_name}</p>
+        <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+      </div>
+    </div>
+    
+    <ul class="sidebar-menu" data-widget="tree">
+      <li class="header">主导航</li>
+        <volist name="menu" id="val">
+          <php>
+            $handler = strtolower(CONTROLLER_NAME. '/' . ACTION_NAME);
+            $top_class = 'treeview';
+            $display = '';
+            $sub = 0;
+            if($handler == strtolower($val['name'])){
+              $top_class = 'treeview menu-open';
+            }
+            foreach($val['sub'] as $son){
+              if($handler == strtolower($son['name'])){
+                $top_class = 'treeview menu-open';
+                $display = 'style="display:block;"';
+              }
+              if($son['sub']){
+                foreach($son['sub'] as $sub){
+                  if($handler == strtolower($sub['name'])){
+                    $top_class = 'treeview menu-open';
+                    $display = 'style="display:block;"';
+                  }
+                }
+              }  
+            }
+          </php>
+          <if condition="$val['status']">
+          <li <if condition="!empty($val['sub'])">class="{$top_class}" </if>>
+            <if condition="!empty($val['sub'])">
+              <a href="javascript:;">
+                <i class="fa {$val.icon|default='fa-reorder'}"></i> <span>{$val.title}</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+              
+              <ul class="treeview-menu" {$display}>
+              <volist name="val.sub" id="vo">
+                <php>
+                  $class = 'style';
+                  if($handler == strtolower($vo['name'])){
+                    $class = 'style active';
+                  }
+                  if($vo['sub']){
+                    foreach($vo['sub'] as $sub){
+                      if($handler == strtolower($sub['name'])){
+                        $class = 'style active';
+                      }
+                    }
+                  }
+                </php>
+                <if condition="$vo['status']">
+                  <li class="{$class}"><a href="{:U($vo['name'])}"><i class="fa {$vo.icon|default='fa-reorder'}"></i>{$vo.title}</a></li>
+                </if>
+              </volist>
+              </ul>
+            <else />
+              <a href="{:U($val['name'])}">
+                <i class="fa {$val.icon|default='fa-reorder'}"></i> <span>{$val.title}</span>
+              </a>
+            </if>
+          </li>
+          </if>
+        </volist>
+    </ul>
+  </section>
+</aside>

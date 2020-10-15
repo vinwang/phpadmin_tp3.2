@@ -1,0 +1,10 @@
+﻿app/Runtime/*
+public/fj/*
+public/spfj/*
+public/xml/*
+public/backup/*
+app/Common/Conf/config.php
+#TP 自带
+Runtime/
+
+.idea/

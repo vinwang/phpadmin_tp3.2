@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="idcCommandAck">
+		<xs:annotation>
+			<xs:documentation>信息安全管理指令执行情况上报</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="commandFileId" type="xs:long">
+					<xs:annotation>
+						<xs:documentation>对应的管理指令文件ID</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="idcId" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>电信管理部门颁发的IDC/ISP许可证号</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="commandAck">
+					<xs:annotation>
+						<xs:documentation>执行情况列表</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="houseId" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>机房ID</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="commandId" type="xs:long">
+								<xs:annotation>
+									<xs:documentation>基础数据管理指令唯一ID，该ID由SMCS产生</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="type" type="xs:integer">
+								<xs:annotation>
+									<xs:documentation>指令唯一ID，该ID由SMCS产生，包括：
+1——监测指令
+2——过滤指令
+3——完成基础数据监测功能打开或关闭的基础数据管理指令
+4——代码发布指令
+</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="resultCode" type="xs:integer">
+								<xs:annotation>
+									<xs:documentation>执行结果代码
+0——成功
+1——部分成功
+2——失败
+</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="msgInfo" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>执行结果描述</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="timeStamp" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>数据生成时间</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

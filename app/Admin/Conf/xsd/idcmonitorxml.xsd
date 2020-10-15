@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 被2012 () 使用XMLSpy v编辑的 (http://www.altova.com) by -->
+<!--编辑使用   XMLSpy v2006 U (http://www.altova.com)由   any (any) -->
+<!--编辑使用   XMLSpy v2006 U (http://www.altova.com)由   any (any) -->
+<!--编辑使用   XMLSpy v2006 U (http://www.altova.com)由   any (any) -->
+<!--编辑使用   XMLSpy v2006 U (http://www.altova.com)由   any (any) -->
+<!-- edited with XML Spy v4.2 U (http://www.xmlspy.com) by munn (munn) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="idcMonitor">
+		<xs:annotation>
+			<xs:documentation>基础数据监测数据上报数据</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="commandId" type="xs:long" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>对应的查询指令 ID，内容为空表示定时上报
+</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="idcId" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>
+IDC/ISP经营者   ID
+</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="houseMonitor" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>机房监测数据</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="id" type="xs:long">
+								<xs:annotation>
+									<xs:documentation>机房  ID</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ip" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>监测到的应用服务
+IP</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="port" type="xs:long">
+								<xs:annotation>
+									<xs:documentation>监测到的目的端口
+</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="domain" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>监测到的实际域名
+</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="serviceType" type="xs:integer" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>对应的服务内容
+当域名已备案时，服务内容为必填</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="firstFound" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>
+从打开基础数据监测功能后，首次监测到该目的   IP的时间，采用   yyyy-MM-dd HH:mm:ss
+格式
+</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="lastFound" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>当天最后一次发现该目的 IP的
+时间，采用   yyyy-MM-dd HH:mm:ss格式</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="illegalInfo" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>
+违法违规信息
+当监测到的实际域名存在是该节点必填</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="illegalType" type="xs:integer">
+											<xs:annotation>
+												<xs:documentation>违法违规情况
+0
+1
+正常网站
+未备案
+999其他
+</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="currentState" type="xs:integer">
+											<xs:annotation>
+												<xs:documentation>该网站的当前状
+态：
+0——未处置
+1——已处置
+</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="user" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>下达处置指令的
+ISMS用户所用用户名，系统自动处置则填写“ISMS”</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ipInfo" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>IP使用信息
+当监测到的实际域名存在是该节点必填  </xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="regError" type="xs:integer">
+											<xs:annotation>
+												<xs:documentation>0——正常
+1——IP登记保留，实际为启用
+2——IP登记域名有误
+3——IP未备案
+</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="regDomain" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>该IP登记的域名</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="visitCount" type="xs:long">
+								<xs:annotation>
+									<xs:documentation>24小时累积访问量
+域名访问量按照该域名的访问次数统计,IP访问量按照访问该IP地址的次数统计
+</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="protocol" type="xs:integer">
+								<xs:annotation>
+									<xs:documentation>传输层协议类型
+1--TCP
+2--UDP
+</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="timeStamp" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>生成时间</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

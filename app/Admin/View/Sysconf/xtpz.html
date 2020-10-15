@@ -1,0 +1,183 @@
+<section class="content-header">
+  <h1>
+   接口参数 
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> 控制台</a></li>
+    <li><a href="#">系统管理</a></li>
+    <li class="active">接口参数</li>
+  </ol>
+</section> 
+<section class="content">
+  <div class="box">
+    <div class="box-header with-border"></div>
+    <form action="{:U('sysconf/xtpz')}" method="post" class="form-horizontal valideform">
+      <div class="box-body">
+        <div class="form-group" id="state">
+            <label for="inputEmail3" class="col-sm-3 control-label">管理指令文件序号</label>
+
+            <div class="col-sm-3">
+              <input type="text" name="commandfileid" id="commandfileid"  value="{$info_list['commandfileid']}" class="form-control"  placeholder="请填写管理指令文件序号" style="width: 245px">
+            </div>  
+          </div> 
+          <div class="form-group" id="state">
+            <label for="inputEmail3" class="col-sm-3 control-label">打开XSD比对功能</label> 
+            <div class=" col-sm-2"> 
+                  <select id="xml_xsd_check" name="xml_xsd_check" class="form-control select2"> 
+                    <option value="0" <if condition="$info_list['xml_xsd_check'] eq 0">selected</if> >否</option>
+                    <option value="1" <if condition="$info_list['xml_xsd_check'] eq 1">selected</if> >是</option>
+                  </select> 
+              </div>  
+          </div>
+          <div class="form-group" id="state">
+            <label for="inputEmail3" class="col-sm-3 control-label">保存定时上报原始XML</label> 
+            <div class=" col-sm-2"> 
+                  <select id="timelog_save_xml" name="timelog_save_xml" class="form-control select2"> 
+                    <option value="0" <if condition="$info_list['timelog_save_xml'] eq 0">selected</if> >否</option>
+                    <option value="1" <if condition="$info_list['timelog_save_xml'] eq 1">selected</if> >是</option>
+                  </select> 
+              </div>  
+          </div>
+          <div class="form-group" id="state">
+            <label for="inputEmail3" class="col-sm-3 control-label">开启手动修改时间功能</label> 
+            <div class=" col-sm-2"> 
+                  <select id="time_edit_hand" name="time_edit_hand" class="form-control select2"> 
+                    <option value="0" <if condition="$info_list['time_edit_hand'] eq 0">selected</if> >否</option>
+                    <option value="1" <if condition="$info_list['time_edit_hand'] eq 1">selected</if> >是</option>
+                  </select> 
+              </div>  
+          </div>
+
+          <div class="form-group" id="state">
+            <label for="inputEmail3" class="col-sm-3 control-label">日志留存时间</label>
+
+            <div class="col-sm-3">
+              <input type="text" name="log_save" id="log_save"  value="{$info_list['log_save']}" class="form-control"  placeholder="请填写日志留存时间" style="width: 245px;display: inline-block;">&emsp;天
+            </div>  
+          </div>  
+
+          <div class="form-group" id="state">
+            <label for="inputEmail3" class="col-sm-3 control-label">上报文件留存时间</label>
+
+            <div class="col-sm-3">
+              <input type="text" name="upload_save_days" id="upload_save_days"  value="{$info_list['upload_save_days']}" class="form-control"  placeholder="请填写上报文件留存时间" style="width: 245px;display: inline-block;">&emsp;天
+            </div>  
+          </div>
+          <div class="form-group" id="upload_log">
+            <label for="inputEmail3" class="col-sm-3 control-label">上报异常机房活动状态</label> 
+            <div class=" col-sm-2"> 
+                <select name="upload_log" class="form-control select2"> 
+                  <option value="0" <if condition="$info_list['upload_log'] eq 0">selected</if> >否</option>
+                  <option value="1" <if condition="$info_list['upload_log'] eq 1">selected</if> >是</option>
+                </select>
+              </div>  
+          </div>
+
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">工作模式</label>
+            <div class=" col-sm-2">  
+                <select name="workMode" class="form-control select2"> 
+                    <option value="0" <if condition="$info_list['workMode'] eq 0">selected</if>>普通模式</option>  
+                    <option value="1" <if condition="$info_list['workMode'] eq 1">selected</if>>高性能模式</option>  
+                </select>
+            </div>  
+          </div>
+
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">备案查询接口地址</label>
+            <div class="col-sm-5">
+              <input type="text" name="bacxUrl" id="bacxUrl" value="{$info_list['bacxUrl']}" class="form-control" placeholder="请填写备案查询接口地址">
+            </div>  
+          </div>
+
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">备案查询用户名</label>
+            <div class="col-sm-5">
+              <input type="text" name="bacxUser" id="bacxUser" value="{$info_list['bacxUser']}" class="form-control" placeholder="请填写备案查询用户名">
+            </div>  
+          </div>
+
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">备案查询密码</label>
+            <div class="col-sm-5">
+              <input type="text" name="bacxPwd" id="bacxPwd" value="{$info_list['bacxPwd']}" class="form-control" placeholder="请填写备案查询密码">
+            </div>  
+          </div>
+
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">是否DU查询</label>
+            <div class=" col-sm-2">  
+                <select name="isdu" id="isdu" class="form-control select2" onchange="showDu();"> 
+                    <option value="0" <if condition="$info_list['isdu'] eq 0">selected</if>>否</option>  
+                    <option value="1" <if condition="$info_list['isdu'] eq 1">selected</if>>是</option>  
+                </select>
+            </div>  
+          </div>
+          
+          <div id="showDu" style="display: none;">
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-3 control-label">DU接口地址</label>
+              <div class="col-sm-5">
+                <input type="text" name="du_surl" id="du_surl" value="{$info_list['du_surl']}" class="form-control" placeholder="请填写DU接口地址">
+              </div>  
+            </div>
+
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-3 control-label">DU-ftp服务器地址</label>
+              <div class="col-sm-5">
+                <input type="text" name="du_ftp_host" id="du_ftp_host" value="{$info_list['du_ftp_host']}" class="form-control" placeholder="请填写ftp服务器地址">
+              </div>  
+            </div>
+
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-3 control-label">DU-ftp端口</label>
+              <div class="col-sm-5">
+                <input type="text" name="du_ftp_port" id="du_ftp_port" value="{$info_list['du_ftp_port']}" class="form-control" placeholder="请填写ftp端口">
+              </div>  
+            </div>
+
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-3 control-label">DU-ftp用户名</label>
+              <div class="col-sm-5">
+                <input type="text" name="du_ftp_user" id="du_ftp_user" value="{$info_list['du_ftp_user']}" class="form-control" placeholder="请填写ftp用户名">
+              </div>  
+            </div>
+
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-3 control-label">DU-ftp密码</label>
+              <div class="col-sm-5">
+                <input type="text" name="du_ftp_pwd" id="du_ftp_pwd" value="{$info_list['du_ftp_pwd']}" class="form-control" placeholder="请填写ftp密码">
+              </div>  
+            </div>
+
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-3 control-label">DU-ftp文件夹名</label>
+              <div class="col-sm-5">
+                <input type="text" name="du_ftp_path" id="du_ftp_path" value="{$info_list['du_ftp_path']}" class="form-control" placeholder="请填写ftp文件夹名">
+              </div>  
+            </div>
+          </div>
+      </div>
+
+      <div class="box-footer"> 
+      <input type="submit" value="提交" name="add" class="btn btn-primary" />
+      </div> 
+    </form>
+  </div>
+</section>
+<script>
+$(function(){
+    var du = "{$info_list['du_surl']}";
+    if(du != ''){
+      $('#showDu').show();
+    }
+})
+function showDu(){
+  var isdu = $('#isdu').val();
+  if(isdu == 1){
+    $('#showDu').show();
+  }else{
+    $('#showDu').hide();
+  }
+}
+</script>

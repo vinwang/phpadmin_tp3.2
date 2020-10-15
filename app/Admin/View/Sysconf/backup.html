@@ -1,0 +1,136 @@
+<style>
+    th{width: 200px;text-align: right;}
+</style>
+<section class="content-header">
+  <h1>
+    备份和恢复 
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> 控制台</a></li>
+    <li><a href="#">系统管理</a></li>
+    <li class="active">备份和备份</li>
+  </ol>
+</section>
+<section class="content">
+  <div class="col-md-12">
+    <div class="nav-tabs-custom">
+      <div class="tab-content">
+        <div class="active tab-pane">
+          <div class="box">
+            <form id="form" name='form_op' action="{:U('Sysconf/upload')}" method="post" enctype="multipart/form-data">
+                <table class="table table-striped">
+                    <tr>
+                      <th width="160" height="50">系统备份：</th>
+                      <td>
+                          备份方式
+                          <select id="backtype">
+                              <option value="0">全部（所有数据表，耗时较多）</option>
+                              <option value="1">部分（仅机房、用户、安全责任人、监测过滤日志、访问日志）</option>
+                          </select>
+                          &nbsp;&nbsp;<input type="button" class="btn btn-primary" value="备份" onClick="backup();" />
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <th height="50">从备份列表中恢复：</th>
+                      <td>
+                         
+                          &nbsp;&nbsp;<input type="button"  class="btn btn-primary" value="恢复"  onclick="layeropen('恢复','800px', '600px','{:U(\'Sysconf/recovery\')}'); return false;" />
+                      </td>
+                    </tr>
+                  <tr>
+                    <th width="160">上传恢复文件恢复：</th>
+                    <td>
+                    <input style="float: left;" type="file" id="upgradefile" name="upgradefile" value=""/>
+                    &nbsp;&nbsp;
+                   
+                    <input style="float: left;" id="submitform" type="button" value="上传" class='btn btn-primary text-center' onclick="uploadConfirm('确定要上传恢复文件吗？', 'form');"/>
+                    </td>
+                  </tr>  
+              </table> 
+            </form>
+          </div> 
+          <a id="verify">&nbsp;</a>
+        </div> 
+      </div>
+    </div>
+  </div>
+</section>
+<script type="text/javascript" language="javascript">
+var filename = '<?php echo $filename;?>';
+
+$(function(){
+    if (filename != 'nofile')
+    {  
+        layermsg('正在恢复中，请勿关闭窗口',16);
+        do_import(filename);
+    }
+
+});
+function backup()
+{   var type = $('#backtype').val();
+    var uri = '{:U("Sysconf/backup")}';
+    layer.confirm('您确定要进行备份吗？',{icon:0,title:'提示信息'},function(index){
+      
+        layermsg('正在备份中，请勿关闭窗口',16);
+      $.post(uri +'&back=1&type='+type, $('#form').serialize(), function(data){ 
+          if(data.code == '1'){
+            layermsg(data.msg,1,'reload'); 
+      }
+      else
+      {
+        layermsg(data.msg);
+      }
+      },'json');
+   });
+}
+
+function uploadConfirm(msg, formid)
+{
+  var upgradefile = $('#upgradefile').val();
+
+  if (upgradefile == '')
+  {
+    layermsg('请选择要上传的文件');
+    return false;
+  }
+
+  layer.confirm(msg,{icon:0,title:'提示信息'},function(index){ 
+      $('#' + formid).submit(); 
+
+        layermsg('正在上传文件，请耐心等待……',16);
+  });
+
+}
+function do_import(filenametmp)
+{
+  var url = '{:U("Sysconf/backup")}';
+    $.ajax({
+        url: url +'&huifu=1&upload=1&filename=' + filenametmp,
+        type: 'GET',
+        complete: function(request)
+        {
+            var status = parseInt(request.status);
+            var response = request.responseJSON;
+
+            // 当WEB服务器停止执行时，仍定时触发AJAX请求
+            if (status != 200)
+            {
+                setTimeout('do_import(filenametmp);', 2000);
+            }
+            else
+            {
+                if(response.code == '1'){
+                    
+                    layermsg('恢复成功！',1);
+                }
+                else
+                {
+                    layermsg('恢复失败！')
+                }
+            }
+        }
+    });
+}
+
+</script>

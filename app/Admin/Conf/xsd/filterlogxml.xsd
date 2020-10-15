@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="filterResult">
+		<xs:annotation>
+			<xs:documentation>过滤日志上报</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="idcId" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>电信管理部门颁发的IDC/ISP许可证号</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="log" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="logId" type="xs:long">
+								<xs:annotation>
+									<xs:documentation>过滤日志记录ID</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="commandId" type="xs:long">
+								<xs:annotation>
+									<xs:documentation>过滤指令ID</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="houseId" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>机房ID</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="srcIp" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>源IP</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="destIp" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>目的IP地址
+</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="srcPort" type="xs:long">
+								<xs:annotation>
+									<xs:documentation>源端口</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="destPort" type="xs:long">
+								<xs:annotation>
+									<xs:documentation>目的端口</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="domainName" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>域名</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="proxyType" type="xs:integer" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>代理类型</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="proxyIp" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>代理IP</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="proxyPort" type="xs:long" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>代理端口</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="title" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>标题</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="content" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>内容采用base64编码后的内容，编码之前的文件大小不超过1M</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="url" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>				URL</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="attachment" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="title" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>附件标题</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="file" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>附件文件采用base64编码后的附件文件，原文件不能超过10M</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="gatherTime" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>采集时间，采用yyyy-MM-dd HH:mm:ss的格式
+
+</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="timeStamp" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>数据生成时间</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

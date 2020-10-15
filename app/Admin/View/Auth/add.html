@@ -1,0 +1,86 @@
+<section class="content-header">
+  <h1>
+   新增角色
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> 控制台</a></li>
+    <li><a href="{:U('Auth/index')}">角色管理</a></li>
+    <li class="active">新增角色</li>
+  </ol>
+</section> 
+<section class="content">
+  <div class="box box-primary"> 
+    <div class="box-body">
+    <form action="{:U('Auth/add')}" method="post" class="form-horizontal valideform">
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-2 control-label">角色组名称</label>
+
+          <div class="col-sm-5">
+            <input type="text"  name="title" id="tiele" value="{$result.title}" class="form-control" placeholder="角色组名称">
+          </div> 
+        </div>
+
+        <div class="col-sm-12"> 
+          <label for="inputEmail3" class="col-sm-2 control-label">管理权限<p><input class="btn btn-primary btn-xs" type="button" name="selectall" id="selectall" value="全选"  /></p></label>
+          <div class="col-sm-10 table-responsive">
+            <table class="table">
+              <foreach name="data" item="vo">
+              <tr>
+                <td>         
+                  <input type="checkbox" name="rules[]" class="checkbox{$vo.id} " id="{$vo.id}" value="{$vo.id}" <if condition="in_array($vo['id'], $result['rules'])"> checked </if> />
+
+                  <label for="{$vo.id}">{$vo.title}</label>
+                </td>
+              </tr>
+              <foreach name="vo['sub']" item="sub">
+              <tr> 
+                <td>&emsp;┠&emsp;
+                    <input type="checkbox" name="rules[]" class="checkbox{$vo.id} " id="{$sub.id}" value="{$sub.id}" <if condition="in_array($sub['id'], $result['rules'])"> checked </if> />
+                    <label for="{$sub.id}">{$sub.title}</label>&emsp; 
+                </td> 
+              </tr>
+              <if condition="$sub['sub']">
+              <tr> 
+                <td>&emsp;&emsp;┠&emsp;
+                  <foreach name="sub['sub']" item="ssub">
+                    <input type="checkbox" name="rules[]" class="checkbox{$sub.id} checkbox{$vo.id}" id="{$ssub.id}" value="{$ssub.id}" <if condition="in_array($ssub['id'], $result['rules'])"> checked </if> />
+                    <label for="{$ssub.id}">{$ssub.title}</label>
+                  </foreach>
+                </td> 
+              </tr> 
+              </if>
+              </foreach>
+              </foreach>
+            </table>
+
+          </div>
+        </div> 
+
+        <div class="box-footer container col-sm-12"> 
+          <input type="hidden" name="id" id="id" value="{$result.id}" />  
+          <input type="submit" name="add" value="提交" class="btn btn-primary pull-left" />
+          <a href="javascript:void(0);" onclick="history.back(-1);" class="btn btn-default pull-right">返回</a>
+        </div>
+    </form>
+    </div>
+  </div> 
+</section> 
+
+<script type="text/javascript">
+$(function(){
+  $("input[type=checkbox]").change(function(){
+    var value = $(this).val();
+    if($("input[type=checkbox]").hasClass("checkbox"+value)){
+      $(".checkbox"+value).prop("checked", $(this).prop("checked"));
+    }
+  });
+
+  //全选
+  $("#selectall").click(function(){
+    var value = $("input[type=checkbox]").eq(0).prop("checked");
+    var ischeck = value == false ? true : false;
+
+    $("input[type=checkbox]").prop("checked", ischeck);
+  });
+})
+</script>

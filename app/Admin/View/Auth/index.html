@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="__PUBLIC__/css/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="__PUBLIC__/css/dist/css/AdminLTE.min.css">
+<section class="content-header">
+  <h1>
+    角色管理
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> 控制台</a></li>
+    <li><a href="#">账号管理</a></li>
+    <li class="active">角色管理</li>
+  </ol>
+</section>
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <section class="content-header clearfix">
+          <a href="{:U('Auth/add')}" class="btn btn-primary pull-right" ><i class="fa fa-plus"></i>新增角色组</a>
+        </section>
+        <div class="box-body">
+          <table id="example2" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>角色/组</th>
+              <th>创建时间</th>
+              <th>创建人</th>
+              <th>操作</th> 
+            </tr>
+            </thead>
+            <tbody>
+      
+            <if condition="!empty($user_list)">
+            <volist name="user_list" id="tmp">
+                <tr>
+                  <td>{$tmp.id}</td>
+                  <td>{$tmp.title}</td>
+                  <td>{$tmp['add_time'] ? $tmp['add_time']|date='Y-m-d H:i:s',### : ''}</td>
+                  <td>{$tmp.uname}</td>
+                  <td>
+               
+                  <if condition="$tmp['id'] gt 1">
+                    <a href="{:U('Auth/add',['id'=>$tmp['id']])}" class="btn btn-primary">编辑</a>
+                   
+                    <if condition="$tmp['id'] gt 2">
+                      <php>$url = U('Auth/delete',['id'=>$tmp['id']]);</php>
+                      <a href='javascript:void(0);' onclick="onOneDelete('<?php echo $url;?>','删除的数据不可恢复，您确认要删除吗？'); return false;" class="btn btn-danger">删除</a>
+                    </if>
+                  </if>
+                  </td>
+                </tr>
+            </volist>
+            </if>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script type="text/javascript">
+function onOneDelete(url, content)
+{
+    var content = content ? content : '删除的数据不可恢复，您确认要删除吗？';
+    layer.confirm(content,{icon:0,title:'提示信息'},function(index){
+      $.get(url, function(data){
+          if(data.code == 0){
+          window.location.reload();
+        }
+        else if (data.code == 2)
+        {
+            layermsg('该角色下还有用户，不能进行删除！');
+        }
+        else if(data.code == 1){
+          layermsg("删除失败！");
+        }
+      }, 'json');
+    });
+    return false;
+}
+</script>

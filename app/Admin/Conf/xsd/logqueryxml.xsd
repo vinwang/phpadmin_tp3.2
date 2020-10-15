@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="logQueryResult">
+		<xs:annotation>
+			<xs:documentation>访问日志查询结果</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="commandId" type="xs:long">
+					<xs:annotation>
+						<xs:documentation>基础数据管理指令唯一ID，该ID由SMCS产生</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="idcId" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>电信管理部门颁发的IDC/ISP许可证号</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="result">
+					<xs:annotation>
+						<xs:documentation>执行结果</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="logAmount" type="xs:long">
+								<xs:annotation>
+									<xs:documentation>符合查询条件的访问日志总数</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="endFlag" type="xs:integer">
+								<xs:annotation>
+									<xs:documentation>查询指令的执行结果标志：
+0——最后一份符合条件的访问日志，本次上报结束后，上报全部完成；
+1——尚未结束上报，还有日志需要上传；
+</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="msgInfo" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>执行结果描述</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="log" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>日志记录内容</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="logId" type="xs:long">
+								<xs:annotation>
+									<xs:documentation>日志记录ID</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="houseId" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>机房ID</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="srcIp" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>源IP</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="destIp" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>目的IP地址
+</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="srcPort" type="xs:long">
+								<xs:annotation>
+									<xs:documentation>源端口</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="destPort" type="xs:long">
+								<xs:annotation>
+									<xs:documentation>目的端口</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="url" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>				URL</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="accessTime" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>访问时间，采用yyyy-MM-dd HH:mm:ss的格式</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="timeStamp" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>数据生成时间</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

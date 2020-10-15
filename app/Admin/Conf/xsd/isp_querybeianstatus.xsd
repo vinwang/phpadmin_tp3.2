@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="GBK"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- edited with XMLSpy v2007 sp1 (http://www.altova.com) by TangLei (EMBRACE) -->
+<!-- edited with XML Spy v4.2 U (http://www.xmlspy.com) by munn (munn) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="return">
+		<xs:annotation>
+			<xs:documentation>是否备案查询的应答信息</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="msg_code">
+					<xs:annotation>
+						<xs:documentation>
+							返回状态：
+							0-操作成功
+							1-操作成功，数据已经下载完毕
+							2-目前服务器端没有可以下载的数据
+							3-服务器端数据需要下载，请继续调用本接口进行下载
+							4-用户名错误
+							5-密码错误
+							6-解密失败
+							7-哈希值验证未通过
+							8-解压缩失败
+							9-加密算法类型错误
+							10-Hash算法类型错误
+							11-压缩格式错误
+							12-认证错误，服务器拒绝响应
+							13-非本省ISP，服务器拒绝响应
+							14-本次上载没有受理，请首先上载漏报的数据，然后再上载本次数据
+							15-本次上载没有受理，已上报的数据文件已超过最大受理数量，请稍后再提交
+							999-其他未知错误
+                        </xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:long">
+							<xs:minInclusive value="0"/>
+							<xs:maxInclusive value="999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="msg">
+					<xs:annotation>
+						<xs:documentation>返回状态描述</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="256"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="StatusInfo" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Cxtjlx">
+								<xs:annotation>
+									<xs:documentation>
+										查询条件类型
+										0，表示通过网站域名查询网站是否已备案；
+										1，表示通过工商营业执照号码查询单位主体是否备案；
+										2，表示通过个人身份证号码查询个人主体是否备案；
+										3，表示通过事业单位组织机构代码证号码查询单位主体是否备案； 
+										4，表示通过事业法人证号码查询单位主体是否备案；
+										5，表示通过军队代号号码查询单位主体是否备案；
+										6，表示通过社会团体社团法人证号码查询单位主体是否备案；
+										7，表示通过护照号码查询个人主体是否备案；
+										8，表示通过军官证号码查询个人主体是否备案；
+										9，表示通过政府机关组织机构代码证号码查询单位主体是否备案；
+										10，表示通过社会团体组织机构代码证号码查询单位主体是否备案；
+										11，表示通过台胞证号码查询个人主体是否备案。
+									</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:long">
+										<xs:minInclusive value="0"/>
+										<xs:maxExclusive value="99"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Cxtj">
+								<xs:annotation>
+									<xs:documentation>与Cxtjlx对应的域名或证件号码</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="4"/>
+										<xs:maxLength value="255"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="Wzmc" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>网站名称,当Bazt为0并且Cxtj为0时，此标签存在</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Ztbah" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>主体备案号,当Bazt为0时，此标签存在</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Wzbah" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>网站备案号,当Bazt为0并且Cxtj为0时，此标签存在</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Bazt">
+								<xs:annotation>
+									<xs:documentation>主体或网站是否已备案：0表示已经备案；1表示未备案</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<!-- <xs:attribute name="version" type="xs:string" use="required"/> -->
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

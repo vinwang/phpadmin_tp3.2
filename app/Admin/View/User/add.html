@@ -1,0 +1,121 @@
+<section class="content-header">
+  <h1>
+   新增用户
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> 控制台</a></li>
+    <li><a href="{:U('User/index')}">用户管理</a></li>
+    <li class="active">新增用户</li>
+  </ol>
+</section> 
+<section class="content">
+  <div class="box box-info">
+    <div class="box-header with-border"></div>
+    <form action="{:U('User/add')}" id="form" method="post" class="form-horizontal valideform" name='form_op'>
+      <div class="box-body">
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
+
+          <div class="col-sm-5">
+            <input type="text" name="username" id="username" class="form-control"  placeholder="请填写用户名" datatype="*4-18">
+          </div>  
+          <p class="help-block col-sm-3"><font color="Red">*</font> &emsp;4～18个字符，字母开头，可含数字，下划线</p> 
+        </div>
+
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-2 control-label">密码</label>
+
+          <div class="col-sm-5">
+            <input type="password" name="password" class="form-control" id="password" placeholder="请填写密码" datatype="*6-16">
+          </div>
+          <p class="help-block col-sm-5"><font color="Red">*</font> &emsp; 6～16个字符，区分大小写</p>
+        </div>
+
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-2 control-label">确认密码</label>
+
+        <div class="col-sm-5">
+            <input type="password" name="password2" id="password2" class="form-control" placeholder="请重复确认密码" recheck="password" datatype="*6-16">
+          </div>
+        </div> 
+
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-2 control-label">角色</label>
+          
+            <div class=" col-sm-2"> 
+              <div class="checkbox">
+               <select name="group_id" id="group_id" class="form-control select2" datatype="*" nullmsg="请选择角色">
+                <option value="">请选择角色</option>
+                  <foreach name="data" item="vo">
+                    <option value="{$vo.id}">{$vo.title}</option>
+                  </foreach>
+              </select>
+              </div> 
+            </div> 
+        </div> 
+        
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-2 control-label">姓名</label>
+
+        <div class="col-sm-5">
+            <input type="text" name="name" id="name" value="" class="form-control" placeholder="请填写真实姓名">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-2 control-label">部门</label>
+
+        <div class="col-sm-5">
+            <input type="text" name="department" id="department" value="" class="form-control" placeholder="请填写部门">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-2 control-label">岗位</label>
+
+        <div class="col-sm-5">
+            <input type="text" name="post" id="post" value="" class="form-control" placeholder="请填写岗位">
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-2 control-label">电子信箱</label>
+
+        <div class="col-sm-5">
+            <input type="text" name="email" id="email"  value="" class="form-control" placeholder="请填写真实邮箱">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-2 control-label">允许登录的ipv4地址</label>
+
+        <div class="col-sm-5">
+            <textarea name="bindipv4" id="bindipv4" style="width: 500px; height: 100px;"></textarea>
+          </div>
+          <p class="help-block col-sm-5"> &emsp; 多个IP请换行</p> 
+        </div>
+
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-2 control-label">允许登录的ipv6地址</label>
+
+          <div class="col-sm-5"> 
+            <textarea name="bindipv6" id="bindipv6" style="width: 500px; height: 100px;"></textarea>
+          </div>
+          <p class="help-block col-sm-5"> &emsp; 多个IP请换行</p>
+        </div>
+
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-2 control-label">联系电话</label>
+
+        <div class="col-sm-5">
+            <input type="text" name="tel" id="phone" value="" class="form-control" placeholder="请填写真实手机号">
+          </div>
+        </div>
+      </div>
+       
+      <div class="box-footer">
+          <input type="submit" name="add" value="提交" class="btn btn-primary" />
+      </div>
+    </form>
+  </div>
+</section> 

@@ -1,0 +1,66 @@
+<section class="content-header">
+  <h1>
+    账号列表
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> 控制台</a></li>
+    <li><a href="#">账号管理</a></li>
+    <li class="active">账号列表</li>
+  </ol>
+</section> 
+
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+      <section class="content-header clearfix">
+          <a href="{:U('User/add')}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i>添加用户</a>
+      </section> 
+        <div class="box-body">
+          <table id="example2" class="table table-bordered table-striped">
+            <thead>
+              <tr> 
+                <th>用户名</th>
+                <th>角色</th>
+                <th>姓名</th>
+                <th>部门</th>
+                <th>岗位</th>
+                <th>联系电话</th>
+                <th>电子邮箱</th>
+                <th>最近登录时间</th>
+                <th>最近登录IP</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+            <volist name="user_list" id="val">
+              <tr> 
+                <td>{$val.uname}</td>  
+                <td>{$val['title']}</td>  
+                <td>{$val.name}</td> 
+                <td>{$val.department}</td> 
+                <td>{$val.post}</td> 
+                <td>{$val.phone}</td> 
+                <td>{$val.email}</td>
+                <td>{$val['lastlogintime'] ? $val['lastlogintime']|date='Y-m-d H:i:s',### : ''}</td> 
+                <td><?php echo $val['lastloginip'] ? long2ip($val['lastloginip']) : '';?></td> 
+                <td>
+                  <if condition="$admin_id eq $val['uid']">
+                    <a href="{:U('User/update',['uid'=>$val['uid']])}" class="btn btn-primary">编辑</a>
+                  <else />
+                    <if condition="$val['uid'] GT 1">
+                      <a href="{:U('User/update',['uid'=>$val['uid']])}" class="btn btn-primary">编辑</a>
+                      <php>$url = U('User/delete',['uid'=>$val['uid']]);</php> 
+                      <a href="javascript:;" onclick="javascript:onOneDelete('<?php echo $url;?>','删除后无法恢复，确定删除吗？'); return false;" class="btn btn-danger">删除</a> 
+                    </if>
+                  </if>
+                </td>
+              </tr> 
+              </volist>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

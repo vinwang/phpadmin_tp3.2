@@ -1,0 +1,81 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>跳转提示</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="__PUBLIC__/css/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="__PUBLIC__/css/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="__PUBLIC__/css/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="__PUBLIC__/css/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="__PUBLIC__/css/dist/css/skins/_all-skins.min.css">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <!-- Content Header (Page header) -->
+    <section class="content-header"></section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="error-page">
+        <?php if(isset($message)) {?>
+
+        <div class="alert alert-success">
+          <h3><i class="fa fa-smile-o"></i> <?php echo($message); ?></h3>
+        </div>
+        <?php }else{?>
+
+        <div class="alert alert-danger">
+          <h3><i class="fa fa-meh-o"></i> <?php echo($error); ?></h3>
+        </div>
+        <?php }?>
+        <!-- /.error-content -->
+        <a class="btn btn-info pull-right" href="<?php echo($jumpUrl); ?>" id="href" role="button">返回（<font id="wait"><?php echo($waitSecond); ?></font>）</a>
+      </div>
+      <!-- /.error-page -->
+
+    </section>
+  
+  <div class="control-sidebar-bg"></div>
+</div>
+<script src="__PUBLIC__/css/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="__PUBLIC__/css/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/css/bower_components/fastclick/lib/fastclick.js"></script>
+<script src="__PUBLIC__/css/dist/js/adminlte.min.js"></script>
+<script src="__PUBLIC__/css/dist/js/demo.js"></script>
+<script type="text/javascript">
+(function(){
+
+var wait = document.getElementById('wait'),href = document.getElementById('href').href;
+
+var interval = setInterval(function(){
+
+  var time = --wait.innerHTML;
+
+  if(time <= 0) {
+
+    location.href = href;
+
+    clearInterval(interval);
+
+  };
+
+}, 1000);
+
+})();
+
+</script>
+</body>
+</html>

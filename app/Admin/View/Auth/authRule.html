@@ -1,0 +1,108 @@
+<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
+<link rel="stylesheet" href="__PUBLIC__/css/AdminLTE.min.css">
+<section class="content-header">
+  <h1>
+    权限菜单列表
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> 控制台</a></li>
+    <li><a href="{:U('Auth/index')}">权限管理</a></li>
+    <li class="active">权限菜单列表</li>
+  </ol>
+</section>
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <section class="content-header clearfix">
+          <a href="{:U('Auth/redo')}" class="btn btn-primary pull-right" >重新生成菜单</a>
+          <a href="{:U('Auth/authRadd')}" onclick="layeropen('新增权限菜单', '800px', '430px',this.href); return false;" class="btn btn-primary pull-right" ><i class="fa fa-plus"></i>新增权限菜单</a>
+        </section>
+        <div class="box-body">
+          <table id="example2" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>名称</th>
+              <th>控制器方法</th>
+              <th>是否显示</th>
+              <th>排序</th>
+              <th>创建时间</th> 
+              <th>操作</th> 
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="data" item="vo">
+            <tr>
+              <td height="42"><div>{$vo.id}</div></td>
+              <td><div>{$vo.title}</div>
+                </td>
+              <td><div>{$vo.name}</div></td>
+              <td><div>{$vo['status'] == 1 ? '显示' : '隐藏'}</div></td>
+              <td><div>{$vo.sort}</div></td>
+              <td><div>{$vo.create_time|date="Y-m-d H:i:s",###}</div></td>
+              <td>
+              <a href="{:U('Auth/authRadd',['id'=>$vo['id']])}" class="btn btn-primary" onclick="layeropen('新增权限菜单', '800px', '430px',this.href); return false;">编辑</a>
+                <a onclick="return onOneDelete(this.href, '删除的数据将不可恢复，您确定要删除吗？');" href="{:U('Auth/delauthRule',['id'=>$vo['id']])}"  class="btn btn-danger">删除</a>
+              </td>
+            </tr>
+              <foreach name="vo['sub']" item="child">
+                  <tr>
+                      <td height="40"><div>{$child.id}</div></td>
+                      <td><div>&nbsp;┠─&nbsp;&nbsp;{$child.title}</div></td>
+                      <td><div>{$child.name}</div></td>
+                      <td><div>{$child['status'] == 1 ? '显示' : '隐藏'}</div></td>
+                      <td><div>{$child.sort}</div></td>
+                      <td><div>{$child.create_time|date="Y-m-d H:i:s",###}</div></td>
+                      <td>
+                      <a href="{:U('Auth/authRadd',['id'=>$child['id']])}" class="btn btn-primary" onclick="layeropen('新增权限菜单', '800px', '430px',this.href); return false;">编辑</a>
+
+                      <a onclick="return onOneDelete(this.href, '删除的数据将不可恢复，您确定要删除吗？');" href="{:U('Auth/delauthRule',['id'=>$child['id']])}" class="btn btn-danger">删除</a>
+
+                      </td>
+                  </tr>
+                <foreach name="child['sub']" item="sub">
+                  <tr>
+                      <td height="40"><div>{$sub.id}</div></td>
+                      <td><div>&emsp;┠─&nbsp;&nbsp;{$sub.title}</div></td>
+                      <td><div>{$sub.name}</div></td>
+                      <td><div>{$sub['status'] == 1 ? '显示' : '隐藏'}</div></td>
+                      <td><div>{$sub.sort}</div></td>
+                      <td><div>{$sub.create_time|date="Y-m-d H:i:s",###}</div></td>
+                      <td>
+                      <a href="{:U('Auth/authRadd',['id'=>$sub['id']])}" class="btn btn-primary" onclick="layeropen('新增权限菜单', '800px', '430px',this.href); return false;">编辑</a>
+                      <a onclick="return onOneDelete(this.href, '删除的数据将不可恢复，您确定要删除吗？');" href="{:U('Auth/delauthRule',['id'=>$sub['id']])}" class="btn btn-danger">删除</a>
+
+                      </td>
+                  </tr>
+              </foreach>
+              </foreach>
+            </foreach>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script type="text/javascript">
+function onOneDelete(url, content)
+{
+    var content = content ? content : '删除的数据不可恢复，您确认要删除吗？';
+    layer.confirm(content,{icon:0,title:'提示信息'},function(index){
+      $.get(url, function(data){
+          if(data.code == 0){
+          window.location.reload();
+        }
+        else if (data.code == 2)
+        {
+            layermsg('该菜单下还有子菜单，不能进行删除！');
+        }
+        else if(data.code == 1){
+          layermsg("删除失败！");
+        }
+      }, 'json');
+    });
+    return false;
+}
+</script>

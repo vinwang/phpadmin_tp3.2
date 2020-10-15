@@ -1,0 +1,180 @@
+<section class="content-header">
+  <h1>
+   基础参数 
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> 控制台</a></li>
+    <li><a href="#">系统管理</a></li>
+    <li class="active">基础参数</li>
+  </ol>
+</section> 
+<section class="content">
+  <div class="box">
+    <div class="box-header with-border"></div>
+    <form action="{:U('sysconf/setconf')}" method="post" class="form-horizontal valideform">
+      <div class="box-body">
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-3 control-label">SMMS接口地址</label>
+
+          <div class="col-sm-5">
+            <input type="text" name="smms_ip" id="smms_ip" value="{$info_list['smms_ip']}" class="form-control" placeholder="请填写SMMS接口地址">
+          </div>  
+        </div>
+        
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-3 control-label">用户口令</label>
+
+          <div class="col-sm-5">
+            <input type="text" name="user_pwd" id="user_pwd"  value="{$info_list['user_pwd']}" class="form-control"  placeholder="请填写用户口令">
+          </div>  
+        </div>  
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-3 control-label">消息认证密钥</label>
+
+        <div class="col-sm-5">
+            <input type="text" name="news_auth_key" id="news_auth_key"  value="{$info_list['news_auth_key']}" class="form-control" id="inputEmail3" placeholder="请填写消息认证密钥">
+          </div>
+          
+        </div>
+
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-3 control-label">密钥</label>
+
+        <div class="col-sm-5">
+            <input type="text" name="encrypt_key" id="encrypt_key" value="{$info_list['encrypt_key']}" class="form-control" id="inputEmail3" placeholder="请填写密钥">
+          </div>
+          
+        </div>
+
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-3 control-label">偏移量</label>
+
+        <div class="col-sm-5">
+            <input type="text" name="encrypt_iv" id="encrypt_iv" value="{$info_list['encrypt_iv']}" class="form-control" id="inputEmail3" placeholder="请填写偏移量">
+          </div> 
+        </div>
+
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-3 control-label">ftp服务器地址</label>
+
+        <div class="col-sm-5">
+            <input type="text" name="ftp_server" id="ftp_server" value="{$info_list['ftp_server']}" class="form-control" id="inputEmail3" placeholder="请填写ftp服务器地址">
+          </div> 
+        </div>
+
+        
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-3 control-label">ftp端口</label>
+
+        <div class="col-sm-5">
+            <input type="text" name="ftp_port" id="ftp_port" value="{$info_list['ftp_port']}" class="form-control" id="inputEmail3" placeholder="请填写ftp端口">
+          </div> 
+        </div>
+
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-3 control-label">ftp用户名</label>
+
+        <div class="col-sm-5">
+            <input type="text" name="ftp_uname" id="ftp_uname" value="{$info_list['ftp_uname']}" class="form-control" id="inputEmail3" placeholder="请填写ftp用户名">
+          </div> 
+        </div>
+
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-3 control-label">ftp密码</label>
+
+        <div class="col-sm-5">
+            <input type="text" name="ftp_pwd" id="ftp_pwd" value="{$info_list['ftp_pwd']}" class="form-control" id="inputEmail3" placeholder="请填写ftp密码">
+          </div> 
+        </div>
+
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-3 control-label">ftp文件夹名</label>
+
+        <div class="col-sm-5">
+            <input type="text" name="ftp_folder" id="ftp_folder" value="{$info_list['ftp_folder']}" class="form-control" id="inputEmail3" placeholder="请填写ftp文件夹名">
+          </div> 
+        </div>
+      
+      <if condition="$list">
+        <volist name="list" id="vo">
+          <div class="form-group ipnum" id="monitorIp{$key}">
+            <label for="inputEmail3" class="col-sm-3 control-label">监测IP段</label>
+            <div class="col-sm-5">
+              <input type="text" name="qsip{$key}" value="{$vo['qsip']}" class="form-control" placeholder="请填写起始IP" style="width:320px;display: inline-block;">-<input type="text" name="zzip{$key}" value="{$vo['zzip']}" class="form-control" placeholder="请填写终止IP" style="width:320px;display: inline-block;"><if condition="$key eq 0"><a title="添加IP段" href="javascript:void(0);" onclick="addIp()"><i class="fa fa-plus"></i></a><else /><a title="删除" href="javascript:void(0);" onclick="delIp('{$key}')"><i class="fa fa-close" style="color:#b30606;"></i></a></if>
+            </div> 
+          </div>
+        </volist>
+      <else />
+          <div class="form-group" id="monitorIp0">
+            <label for="inputEmail3" class="col-sm-3 control-label">监测IP段</label>
+            <div class="col-sm-5">
+              <input type="text" name="qsip0" value="" class="form-control" placeholder="请填写起始IP" style="width:320px;display: inline-block;">-<input type="text" name="zzip0" value="" class="form-control" placeholder="请填写终止IP" style="width:320px;display: inline-block;"><a title="添加IP段" href="javascript:void(0);" onclick="addIp()"><i class="fa fa-plus"></i></a>
+            </div> 
+          </div>
+      </if>
+
+        <div class="form-group" id="monitorIp">
+            <label for="inputEmail3" class="col-sm-3 control-label">加密算法</label>
+            <div class=" col-sm-2">  
+                <select name="encryptAlgorithm" class="form-control select2" style="width: 100%;"> 
+                  <volist name="encryptAlgorithm"  id="value"> 
+                    <option value="{$key}" <if condition="$info_list['encryptAlgorithm'] eq $key">selected</if>>{$value}</option>  
+                  </volist>
+                </select>
+            </div>  
+        </div>
+        
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">压缩算法</label>
+            <div class=" col-sm-2"> 
+            
+                <select name="compressionFormat" class="form-control select2" style="width: 100%;"> 
+                  <volist name="compressionFormat"  id="value"> 
+                    <option value="{$key}" <if condition="$info_list['compressionFormat'] eq $key">selected</if>>{$value}</option>  
+                  </volist>
+                </select>
+            </div>  
+        </div> 
+
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">哈希算法</label>
+            <div class=" col-sm-2"> 
+            <select name="hashAlgorithm" class="form-control select2" style="width: 100%;"> 
+                  <volist name="hashAlgorithm"  id="value"> 
+                    <option value="{$key}" <if condition="$info_list['hashAlgorithm'] eq $key">selected</if>>{$value}</option>  
+                  </volist>
+                </select>
+            </div>  
+        </div> 
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-3 control-label">版本号</label>
+          <div class="col-sm-5">
+            <input type="text" name="commandVersion" id="commandVersion" value="{$info_list['commandVersion']|default='v2.0'}" class="form-control" id="inputEmail3" placeholder="请填写版本号">
+          </div> 
+        </div>
+      </div>
+      <div class="box-footer"> 
+      <input type="submit" value="提交" name="add" class="btn btn-primary" />
+      </div> 
+    </form>
+  </div>
+</section>
+<script type="text/javascript">
+function addIp()
+{
+    var ip_num = $('.ipnum').length;
+    ip_num ++;
+    $('#monitorIp').before('<div class="form-group ipnum" id="monitorIp'+ip_num+'">'
+          +'<label for="inputEmail3" class="col-sm-3 control-label">监测IP段</label>'
+          +'<div class="col-sm-5">'
+            +'<input type="text" name="qsip'+ip_num+'" value="" class="form-control" placeholder="请填写起始IP" style="width:320px;display: inline-block;">-<input type="text" name="zzip'+ip_num+'" value="" class="form-control" placeholder="请填写终止IP" style="width:320px;display: inline-block;"><a title="删除" href="javascript:void(0);" onclick="delIp('+ip_num+')"><i class="fa fa-close" style="color:#b30606;"></i></a>'
+          +'</div></div>');
+}
+
+function delIp(num)
+{
+    var num = num;
+    
+    $('#monitorIp'+num).remove();
+}
+</script>

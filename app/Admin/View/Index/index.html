@@ -1,0 +1,203 @@
+<style>
+    th{text-align: center;}
+    td{text-align: center;}
+</style>
+<section class="content-header">
+  <h1>
+    控制台首页
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> 控制台</a></li>
+    <li><a href="#">控制台首页</a></li>
+    <li class="active">设备信息</li>
+  </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab">设备信息</a></li>
+                </ul>
+                <div class="tab-content" style="padding-bottom: 87px;">
+                    <div class="box table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th>系统名称：</th>
+                                <td>{$product_name}</td>
+                            </tr>
+
+                            <tr>
+                                <th>本机IP：</th>
+                                <td id="localIp"></td>
+                            </tr>
+
+                            <tr>
+                                <th>软件版本：</th>
+                                <td>{$version}</td>
+                            </tr>
+
+                            <tr>
+                                <th>EU数量：</th>
+                                <td>{$euCount}</td>
+                            </tr>
+
+                            <tr>
+                                <th>CPU信息：</th>
+                                <td id="cpuFrequcy"></td>
+                            </tr>
+
+                            <tr>
+                                <th>内存大小：</th>
+                                <td><font id="memoryTotal"></font>G</td>
+                            </tr>
+
+                            <tr>
+                                <th>磁盘大小：</th>
+                                <td><font id="diskTotal"></font>G</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab">业务状态</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="box table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th>24小时未备案数</th>
+                                <td><font id="nofiled"></font>条</td>
+                            </tr>
+
+                            <tr>
+                                <th>24小时活跃域名</th>
+                                <td><font id="activedomain"></font>条</td>
+                            </tr>
+
+                            <tr>
+                                <th>24小时活跃IP</th>
+                                <td><font id="activeip"></font>条</td>
+                            </tr>
+
+                            <tr>
+                                <th>24小时访问日志</th>
+                                <td><font id="visitlog"></font>条</td>
+                            </tr>
+
+                            <tr>
+                                <th>安全指令<br>(SMMS指令)</th>
+                                <td><font id="smmsCommand"></font>条</td>
+                            </tr>
+
+                            <tr>
+                                <th>安全规则<br>(本地指令)</th>
+                                <td><font id="localCommand"></font>条</td>
+                            </tr>
+
+                            <tr>
+                                <th>规则处置</th>
+                                <td><font id="localHandle"></font>条</td>
+                            </tr>
+
+                            <tr>
+                                <th>更新时间</th>
+                                <td id="updatetime"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab">运行状态</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="box table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th>SMMS地址</th>
+                                <td>{$smmsIp}</td>
+                                <th>SMMS接口状态</th>
+                                <td id="smmsIp"></td>
+                            </tr>
+
+                            <tr>
+                                <th>DU地址</th>
+                                <td>{$du_surl}</td>
+                                <th>DU接口状态</th>
+                                <td id="du_surl"></td>
+                            </tr>
+
+                            <tr>
+                                <th>CPU使用率</th>
+                                <td>
+                                    <div class="progress" id="cputotal_Rate"></div>
+                                </td>
+                                <th>CPU温度</th>
+                                <td><font id="cpuTemperature"></font>℃</td>
+                            </tr>
+
+                            <tr>
+                                <th>内存使用率</th>
+                                <td colspan="3">
+                                    <div class="progress" id="memory_rate"></div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>磁盘使用率</th>
+                                <td id="disk_info" colspan="3"></td>
+                            </tr>
+
+                            <tr>
+                                <th>网卡状态</th>
+                                <td id="net" colspan="3"></td>
+                            </tr>
+
+                            <tr>
+                                <th>运行时长</th>
+                                <td id="runTime" colspan="3"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab">EU设备列表</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="box table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>设备名称</th>
+                                    <th>设备型号</th>
+                                    <th>设备IP</th>
+                                    <th>端口</th>
+                                    <th>序列号</th>
+                                    <th>运行状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="eucontents">
+                                {$euListInfo}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

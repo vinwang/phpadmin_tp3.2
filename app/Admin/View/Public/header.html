@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{$product_name}</title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <include file="Public:asset" />
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <a href="/" class="logo">
+      <span class="logo-mini">龙翊</span>
+      <span class="logo-lg">上海龙翊</span>
+    </a>
+    <nav class="navbar navbar-static-top">
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <span id="timetable" style="color: white;float: left;line-height: 50px;" ><?php echo $now_time;?></span>
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="__PUBLIC__/Images/user2-160x160.jpg" class="user-image" alt="User Image">
+              <span class="hidden-xs">{$admin_name}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="user-header">
+                <img src="__PUBLIC__/Images/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                <p>
+                  {$admin_name}
+                  <small>欢迎您登录{$product_name}</small>
+                </p>
+              </li> 
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="{:U('User/userinfo')}" class="btn btn-default btn-flat" onclick="layeropen('修改个人资料','700px','500px',this.href);return false;">个人资料</a>
+                </div>
+                <div class="pull-right">
+                  <a href="{:U('Login/exitLogin')}" class="btn btn-default btn-flat">退出系统</a>
+                </div>
+              </li>
+            </ul>
+          </li> 
+        </ul>
+      </div>
+    </nav>
+  </header>
